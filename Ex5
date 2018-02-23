@@ -1,0 +1,78 @@
+#SQL Part2
+#sailor (sid, sname, rating, age)
+#boat (bid, bname, color)
+#reserve (sid, bid, rdate)
+
+
+#Q1(a) Average Ratings of all sailors
+select avg(S.rating)
+from sailor S;
+
+
+#Q1(b) Find the names of all sailors with names starting with "Ray", sort in ascending order of names
+select S.sname
+from sailor S
+where S.sname like 'Ray%'
+order by S.sname asc;
+
+
+#Q1(c) Find the boat IDs of all baots reserved by the sailor(s) named "Raymond"
+select R.bid
+from reserve R, sailor S
+where R.sid = S.sid and
+      S.name = 'Raymond';
+
+
+#Q1(d) Find the names of all sailors who have reserved a red boat
+select S.sname
+from sailor S, boat B, reserve R
+where S.sid = R.sid and
+      b.bid = R.bid and
+      b.color = 'red'
+
+
+#Q1(e) Find the names of all sailor who have reserved all red boats
+create view RedBoat
+as
+( select B.bid
+  from boat B
+  where B.color = 'red' );
+
+create view TempTalbe
+as
+( select B.bid, R.sid
+  from RedBoat B left join reserve R
+  on B.bid = R.bid  );
+
+select S.sname
+from sailor S, TempTable T
+where S.sid = T.sid
+group b T.sid, S.sname
+having count(*) = ( select count(*)
+                    from RedBoat  );
+
+drop view TempTable;
+drop view RedBoat;
+
+
+#Q1(f) Find the colors of all boats reserved by the sailor(s) named Raymond
+select B.color
+from sailor S, boat B, reserve R
+where S.sid = R.sid and
+      b.bid = R.bid and
+      s.sname = 'Raymond';
+
+
+Q1(g) Find the average age of sailors for each rating level that has at least 10 sailors
+select avg(s.age)
+from sailor S
+group by avg(s.age)
+havig count (S.rating) > 9;
+
+
+Q1(h) Find the boat IDs and names of all boats each reserved by at most 10 times
+select B.bid, B.name
+from boat B, reserve R
+where B.bid = R.bid
+group by B.bid, B.bname
+having count (R.bid) < 11;
