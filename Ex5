@@ -28,7 +28,7 @@ select S.sname
 from sailor S, boat B, reserve R
 where S.sid = R.sid and
       b.bid = R.bid and
-      b.color = 'red'
+      b.color = 'red';
 
 
 #Q1(e) Find the names of all sailor who have reserved all red boats
