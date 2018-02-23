@@ -64,10 +64,10 @@ where S.sid = R.sid and
 
 
 Q1(g) Find the average age of sailors for each rating level that has at least 10 sailors
-select avg(s.age)
+select S.rating, avg(S.age)
 from sailor S
-group by avg(s.age)
-havig count (S.rating) > 9;
+group by S.rating
+havig count (S.rating) >= 10;
 
 
 Q1(h) Find the boat IDs and names of all boats each reserved by at most 10 times
@@ -75,4 +75,4 @@ select B.bid, B.name
 from boat B, reserve R
 where B.bid = R.bid
 group by B.bid, B.bname
-having count (R.bid) < 11;
+having count (R.bid) <= 10;
