@@ -12,3 +12,32 @@ group by W.uid;
 
 #(b) Find mid, mname watched by user named 'Raymond', from '2018-02-03 09:00:00' to '2018-02-17 17:00:00'
 select M.mid, M.mname
+from user U, movie M, watch W
+where U.uname = 'Raymond'
+      W.wdate >= '2018-02-03 09:00:00'
+      W.wdate <= '2018-02-17 17:00:00'
+      U.uid = W.uid
+      M.mid = W.mid;
+
+#(c) Find the names of all users who have watched all movies with names starting with 'Star Wars'
+create view StarWars
+as
+( select M.mid
+  from movie M
+  where M.mname like 'Star Wars%');
+
+create view TempTable
+as
+( select S.mid, W.uid
+  from StarWars S left join watch W
+  on S.mid = W.mid);
+
+select U.name
+from TempTable T, user U
+where T.uid = U.uid
+group by T.uid, U.uname
+having count (*) = (select count(*)
+                    from StarWars);
+
+drop view TempTable;
+drop view StarWars;
