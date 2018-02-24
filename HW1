@@ -4,6 +4,10 @@
 #movoe (mid, mname, type)
 #watch (mid, uid, wdate, charge)
 
+(i)   Find the names of all users who watched the movie with the name "The Post"
+(ii)  Find the ID and names of all movies which geneate revenue greater than or equal to 1000000
+      , where revenue is defined by the total charge paid by all users to watch the movie
+
 #Q3 Write SQL Codes using scenario 2(a)
 #(a) For each user, find the average charge they paid for a movie
 select W.uid, avg (W.charge)
