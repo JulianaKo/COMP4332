@@ -1,0 +1,14 @@
+#Q2 Describe SQL/NoSQL Statements
+#(a) SQL: Paid Movie Watching Scenario
+#user (uid, uname, bdate)
+#movoe (mid, mname, type)
+#watch (mid, uid, wdate, charge)
+
+#Q3 Write SQL Codes using scenario 2(a)
+#(a) For each user, find the average charge they paid for a movie
+select W.uid, avg (W.charge)
+from watch W
+group by W.uid;
+
+#(b) Find mid, mname watched by user named 'Raymond', from '2018-02-03 09:00:00' to '2018-02-17 17:00:00'
+select M.mid, M.mname
