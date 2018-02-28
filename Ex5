@@ -48,7 +48,7 @@ select S.sname
 from sailor S, TempTable T
 where S.sid = T.sid
 group b T.sid, S.sname
-having count(*) = ( select count(*)
+having count(distinct T.bid) = ( select count(*)
                     from RedBoat  );
 
 drop view TempTable;
