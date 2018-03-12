@@ -1,0 +1,24 @@
+//Insert course info and timestamp
+db.course.insert(
+{
+  coursecode: "COMP4332",
+  couesetitle: "Big Data Mining and Management",
+  timeslot: "2018-02-18T16:45:00Z")
+}
+)
+
+//Insert
+db.student.insert({
+  sid: "12345678",
+  sname: "Raymond",
+  courseTaken: [
+                  {cid: "COMP5331"}.
+                  {cid: "COMP4332"}
+               ]
+})
+
+//Course search by keywords
+db.course.find({byear:1998})
+
+//Course search by waiting list size
+db.course.aggregate([{$match:...},{$group:...},{$sort:...}])
