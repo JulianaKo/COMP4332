@@ -45,3 +45,21 @@ having count (*) = (select count(*)
 
 drop view TempTable;
 drop view StarWars;
+
+Q4
+(a)
+db.student.aggregate([{match:{byear:1998}}])
+
+(b)
+db.student.aggregate([
+      {$match:{$and: [{birthday1: {$gte: new Date("2018-02-03T09:00:00Z")}}, {birthday1: {$lte: new Date("2018-02-17T17:00:00Z")}}}},
+      {$match:{sname:"Raymond"}},
+      {$project:{mid:1, mname:1, _id:0}}
+])
+
+(c)
+db.student.aggregate([
+      {$match:{$mname: "Star Wars%"}}
+      {$project:{uname:1, _id:0}}
+])
+])
