@@ -115,9 +115,15 @@ db.movie.aggregate(
       {$project:{mid:1, mname:1, _id:0}}
 ])
 
-(c)
-db.student.aggregate([
-      {$match:{$mname: "Star Wars%"}}
-      {$project:{uname:1, _id:0}}
-])
-])
+#(c)
+R1 = db.movie.find({mname: "/^Star Wars"}, {mid:1, _id:0}).toArray()
+db.user.aggregate(
+[
+      {
+      $lookup:    {
+                  localField: "uid",
+                  from: "watch",
+                  foreignField: "uid",
+                  as: "user_watched"
+                  }
+                  
