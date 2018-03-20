@@ -1,9 +1,14 @@
 #Q1
 #obtain Student List
-lines = str.split("\n")
-sList = {}
-for i in range(int(lines[0])):
-      sList[i] = lines[i+1].split(" ")
+def obtainStudentList():
+      filename = :student.txt"
+      with open(filename "r") as f:
+            str = f.read()
+      lines = str.split("\n")
+      sList = {}
+      for i in range(int(lines[0])):
+            sList[i] = lines[i+1].split(" ")
+      return sList
 
 #wrire Average File
 for i in range (len(sList)):
