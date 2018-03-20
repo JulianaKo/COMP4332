@@ -44,4 +44,4 @@ def viewLowScoreStudentFile(sList):
 def main():
       sList = obtainStudentList()
       writeAverageFile(sList)
-      writelowScoreStudentFile
+      writelowScoreStudentFile(sList)
