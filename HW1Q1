@@ -1,7 +1,6 @@
-#Q1
 #obtain Student List
 def obtainStudentList():
-      filename = :student.txt"
+      filename = "student.txt"
       with open(filename, "r") as f:
             str = f.read()
       lines = str.split("\n")
@@ -16,7 +15,7 @@ def writeAverageFile(sList):
             average = int(sList[i][1]) + int(sList[i][2]) + int(sList[i][3])
             average /= 3
             average = round(average,2)
-            sList[i].append(average)
+            sList[i].append(str(average))
       strSeperator = " "
       for i in range (len(sList)):
             str = strSeperator.join(sList[i])"\n"
@@ -41,3 +40,8 @@ def viewLowScoreStudentFile(sList):
       filename = "output2.txt"
       with open(filename, "w") as f:
             f.write(str)
+
+def main():
+      sList = obtainStudentList()
+      writeAverageFile(sList)
+      writelowScoreStudentFile
