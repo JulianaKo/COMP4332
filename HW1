@@ -1,3 +1,28 @@
+#Q1
+#1 obtain Student List
+lines = str.split("\n")
+sList = {}
+for i in range(int(lines[0])):
+      sList[i] = lines[i+1].split(" ")
+
+#2 wrire Average File
+for i in range (len(sList)):
+      average = int(sList[i][1]) + int(sList[i][2]) + int(sList[i][3])
+      average /= 3
+      average = round(average,2)
+      sList[i].append(average)
+
+#3 viewLowScoreStudentFile
+count = 0
+lowScore = {}
+for i in range(len(sList)):
+      for j in range(1,4):
+            if (int(sList[i][j])<50):
+                  count += 1
+                  lowScore[count] = sList[i]
+                  break
+lowScore[0] = count
+
 #Q2 Describe SQL/NoSQL Statements
 #(a) SQL: Paid Movie Watching Scenario
 #user (uid, uname, bdate)
