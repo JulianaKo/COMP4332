@@ -8,8 +8,8 @@ group by W.uid;
 select M.mid, M.mname
 from user U, movie M, watch W
 where U.uname = 'Raymond'
-      W.wdate >= '2018-02-03 09:00:00'
-      W.wdate <= '2018-02-17 17:00:00'
+      W.wdate >= str_to_date('2018-02-03 09:00:00', '%Y-%m-%d %H:%i:%s)
+      W.wdate <= str_to_date('2018-02-17 17:00:00', '%Y-%m-%d %H:%i:%s)
       U.uid = W.uid
       M.mid = W.mid;
 
