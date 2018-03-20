@@ -126,4 +126,10 @@ db.user.aggregate(
                   foreignField: "uid",
                   as: "user_watched"
                   }
-                  
+      },
+      {$project: {uname:1, "user_watched":1, _id:0}},
+      {$project: {uname:1, watchedAll: {$setIsSubset: [R1, "$user_watched"]}, _id:0}},
+      {$match: {watchedAll:true}},
+      {$project: {uname:1 _id:0}},
+      {$group: {_id: "$uname"}}
+])
