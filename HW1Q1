@@ -2,7 +2,7 @@
 #obtain Student List
 def obtainStudentList():
       filename = :student.txt"
-      with open(filename "r") as f:
+      with open(filename, "r") as f:
             str = f.read()
       lines = str.split("\n")
       sList = {}
@@ -10,20 +10,34 @@ def obtainStudentList():
             sList[i] = lines[i+1].split(" ")
       return sList
 
-#wrire Average File
-for i in range (len(sList)):
-      average = int(sList[i][1]) + int(sList[i][2]) + int(sList[i][3])
-      average /= 3
-      average = round(average,2)
-      sList[i].append(average)
+#write Average File
+def writeAverageFile(sList):
+      for i in range (len(sList)):
+            average = int(sList[i][1]) + int(sList[i][2]) + int(sList[i][3])
+            average /= 3
+            average = round(average,2)
+            sList[i].append(average)
+      strSeperator = " "
+      for i in range (len(sList)):
+            str = strSeperator.join(sList[i])"\n"
+      filename = "output1.txt"
+      with open(filename, "w") as f:
+            f.write(str)
 
 #viewLowScoreStudentFile
-count = 0
-lowScore = {}
-for i in range(len(sList)):
-      for j in range(1,4):
-            if (int(sList[i][j])<50):
-                  count += 1
-                  lowScore[count] = sList[i]
-                  break
-lowScore[0] = count
+def viewLowScoreStudentFile(sList):
+      count = 0
+      lowScore = {}
+      for i in range(len(sList)):
+            for j in range(1,4):
+                  if (int(sList[i][j])<50):
+                        count += 1
+                        lowScore[count] = sList[i]
+                        break
+      lowScore[0] = count
+      strSeperator = " "
+      for i in range (len(lowScore)):
+            str = strSeperator.join(lowScore[i])"\n"      
+      filename = "output2.txt"
+      with open(filename, "w") as f:
+            f.write(str)
