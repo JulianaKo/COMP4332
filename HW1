@@ -93,9 +93,24 @@ db.user.aggregate(
             
 
 #(b)
-db.movie.aggregate([
- {$unwind: "user_charge"}
-      {$match:{$and: [{birthday1: {$gte: new Date("2018-02-03T09:00:00Z")}}, {birthday1: {$lte: new Date("2018-02-17T17:00:00Z")}}}},
+db.movie.aggregate(
+[{"$lookup: {
+            from: "watch",
+            localField: "mid",
+            foreignField: "mid",
+            as: "movie_watched"
+            }
+ },
+ {$unwind: "movie_watched"}
+ {"$lookup: {
+            from: "user",
+            localField: "uid",
+            foreignField: "uid",
+            as: "movie_watched_user"
+            }
+ },
+ {$unwind: "movie_watched_user"}
+      {$match:{$and: [{wdate: {$gte: new Date("2018-02-03T09:00:00Z")}}, {wdate: {$lte: new Date("2018-02-17T17:00:00Z")}}}},
       {$match:{uname:"Raymond"}},
       {$project:{mid:1, mname:1, _id:0}}
 ])
