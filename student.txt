@@ -1,0 +1,5 @@
+4
+Raymond 80 70 95
+Peter 49 90 76
+Mary 23 100 20
+John 91 82 55
