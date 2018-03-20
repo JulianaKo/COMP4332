@@ -1,18 +1,18 @@
 #Q1
-#1 obtain Student List
+#obtain Student List
 lines = str.split("\n")
 sList = {}
 for i in range(int(lines[0])):
       sList[i] = lines[i+1].split(" ")
 
-#2 wrire Average File
+#wrire Average File
 for i in range (len(sList)):
       average = int(sList[i][1]) + int(sList[i][2]) + int(sList[i][3])
       average /= 3
       average = round(average,2)
       sList[i].append(average)
 
-#3 viewLowScoreStudentFile
+#viewLowScoreStudentFile
 count = 0
 lowScore = {}
 for i in range(len(sList)):
@@ -22,16 +22,6 @@ for i in range(len(sList)):
                   lowScore[count] = sList[i]
                   break
 lowScore[0] = count
-
-#Q2 Describe SQL/NoSQL Statements
-#(a) SQL: Paid Movie Watching Scenario
-#user (uid, uname, bdate)
-#movoe (mid, mname, type)
-#watch (mid, uid, wdate, charge)
-
-(i)   Find the names of all users who watched the movie with the name "The Post"
-(ii)  Find the ID and names of all movies which geneate revenue greater than or equal to 1000000
-      , where revenue is defined by the total charge paid by all users to watch the movie
 
 #Q3 Write SQL Codes using scenario 2(a)
 #(a) For each user, find the average charge they paid for a movie
@@ -91,7 +81,6 @@ db.user.aggregate(
  }
  ]);
             
-
 #(b)
 db.movie.aggregate(
 [{"$lookup: {
