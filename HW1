@@ -71,14 +71,32 @@ having count (*) = (select count(*)
 drop view TempTable;
 drop view StarWars;
 
-Q4
-(a)
-db.student.aggregate([{match:{byear:1998}}])
+#Q4 NoSQL
+#(a) Average Amount of Money Paid for Each User
+db.user.aggregate(
+[{"$lookup: {
+            from: "watch",
+            localField: "uid",
+            foreignField: "uid",
+            as: "user_charge"
+            }
+ },
+ {$unwind: "user_charge"}
+ {$group: {_id:"$charge", avgCharge: {$avg:1}}}
+ {$project: {
+            _id:0,
+            uid:1,
+            avgCharge:1,
+            }
+ }
+ ]);
+            
 
-(b)
-db.student.aggregate([
+#(b)
+db.movie.aggregate([
+ {$unwind: "user_charge"}
       {$match:{$and: [{birthday1: {$gte: new Date("2018-02-03T09:00:00Z")}}, {birthday1: {$lte: new Date("2018-02-17T17:00:00Z")}}}},
-      {$match:{sname:"Raymond"}},
+      {$match:{uname:"Raymond"}},
       {$project:{mid:1, mname:1, _id:0}}
 ])
 
