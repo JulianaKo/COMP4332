@@ -1,22 +1,10 @@
 #Q4 NoSQL
 #(a) Average Amount of Money Paid for Each User
-db.user.aggregate(
-[{"$lookup: {
-            from: "watch",
-            localField: "uid",
-            foreignField: "uid",
-            as: "user_charge"
-            }
- },
- {$unwind: "user_charge"}
- {$group: {_id:"$charge", avgCharge: {$avg:1}}}
- {$project: {
-            _id:0,
-            uid:1,
-            avgCharge:1,
-            }
+db.watch.aggregate(
+[{$group:{_id:"$charge", avgCharge: {$avg:1}}},
+ {$project:{_id:0,uid:1, avgCharge:1}
  }
- ]);
+]);
             
 #(b)
 db.movie.aggregate(
@@ -35,27 +23,26 @@ db.movie.aggregate(
            as: "movie_watched_user"
            }
  },
- {$unwind: "$movie_watched_user"},
-      {$match:{$and: [{"movie_watched.wdate": {$gte: new Date("2018-02-03T09:00:00Z")}}, {"movie_watched.wdate": {$lte: new Date("2018-02-17T17:00:00Z")}}]}},
-      {$match:{"movie_watched_user.uname":"Raymond"}},
-      {$project:{mid:1, mname:1, _id:0}}
+ {$unwind:"$movie_watched_user"},
+ {$match:{$and: [{"movie_watched.wdate": {$gte:new Date("2018-02-03T09:00:00Z")}}, {"movie_watched.wdate":{$lte: new Date("2018-02-17T17:00:00Z")}}]}},
+ {$match:{"movie_watched_user.uname":"Raymond"}},
+ {$project:{mid:1, mname:1, _id:0}}
 ])
 
 #(c)
 R1 = db.movie.find({mname: "/^Star Wars"}, {mid:1, _id:0}).toArray()
-db.user.aggregate(
-[
+db.user.aggregate([
       {
-      $lookup:    {
-                  localField: "uid",
-                  from: "watch",
-                  foreignField: "uid",
-                  as: "user_watched"
-                  }
+      $lookup:{
+              localField:"uid",
+              from:"watch",
+              foreignField:"uid",
+              as:"user_watched"
+              }
       },
-      {$project: {uname:1, "user_watched.mid":1, _id:0}},
-      {$project: {uname:1, watchedAll: {$setIsSubset: [R1, "$user_watched"]}, _id:0}},
-      {$match: {watchedAll:true}},
-      {$project: {uname:1 _id:0}},
-      {$group: {_id: "$uname"}}
+      {$project:{uname:1, "user_watched.mid":1, _id:0}},
+      {$project:{uname:1, watchedAll: {$setIsSubset: [R1, "$user_watched"]}, _id:0}},
+      {$match:{watchedAll:true}},
+      {$project:{uname:1, _id:0}},
+      {$group:{_id: "$uname"}}
 ])
